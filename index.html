@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="./bootstrap/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="index.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="./model/model.js"></script>
+    <script src="./view/view.js"></script>
+    <script src="./controller/controller.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <h1>The Hangman</h1>
+    <h3><div id="text">Score: </div><div id="score">0</div></h3>
+    <h6><div id="text">Lives: </div><div id="lives">7</div></h6>
+    <div>
+        <h3><div id="word"></div></h3>
+    </div>
+    <div>
+        <p><div id="hint"></div></p>
+    </div>
+    <table class="table table-bordered" id="letters">
+        <tr>
+            <td>A</td>
+            <td>B</td>
+            <td>C</td>
+            <td>D</td>
+        </tr>
+        <tr>
+            <td>E</td>
+            <td>F</td>
+            <td>G</td>
+            <td>H</td>
+        </tr>
+        <tr>
+            <td>I</td>
+            <td>J</td>
+            <td>K</td>
+            <td>L</td>
+        </tr>
+        <tr>
+            <td>M</td>
+            <td>N</td>
+            <td>O</td>
+            <td>P</td>
+        </tr>
+        <tr>
+            <td>Q</td>
+            <td>R</td>
+            <td>S</td>
+            <td>T</td>
+        </tr>
+        <tr>
+            <td>U</td>
+            <td>V</td>
+            <td>W</td>
+            <td>X</td>
+        </tr>
+        <tr>
+            <td>Y</td>
+            <td>Z</td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+    <button type="button" class="btn btn-dark" onclick=resetView()>Reset</button>
+</body>
+</html>
