@@ -11,4 +11,6 @@ app.get('/', (req, res) => {
 
 app.listen(3000, () => {
     console.log('app now listening for requests on port 3000');
+    dbo.test();
+    console.log("singed in")
 });
