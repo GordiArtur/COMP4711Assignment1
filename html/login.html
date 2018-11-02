@@ -7,13 +7,14 @@
     <link href="../bootstrap/bootstrap.min.css" rel="stylesheet" media="screen">
     <link rel="stylesheet" href="../css/index.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="../view/login_view.js"></script>
     <title>Document</title>
 </head>
 <body>
 <h1>Log In:The Hangman</h1>
 <form action="" class="login-form">
-    <input type="text" name="username" required placeholder="Username"><br>
-    <input type="password" minlength="8" required name="password" placeholder="Password">
+    <label><input type="text" name="username" required placeholder="Username"></label><br>
+    <label><input type="password" minlength="8" required name="password" placeholder="Password"></label><br>
 </form>
 <button type="button" class="btn btn-info" onclick=logIn()>Login</button>
 <button type="button" class="btn btn-warning" onclick="document.location.href='signup';">Sign Up</button>

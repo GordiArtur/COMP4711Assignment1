@@ -1,9 +1,11 @@
 const express = require ('express');
+const bodyParser = require('body-parser');
 const dbo = require('./model/db');
 
 const app = express();
 
 app.use(express.static(__dirname + '/'));
+app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/html/index.html');
@@ -15,6 +17,12 @@ app.get('/login', (req, res) => {
 
 app.get('/signup', (req, res) => {
     res.sendFile(__dirname + '/html/signup.html');
+});
+
+app.post('/newuser', (req, res) => {
+    let credentials = req.body;
+    console.log("credentials received");
+    console.log(credentials);
 });
 
 app.listen(3000, () => {

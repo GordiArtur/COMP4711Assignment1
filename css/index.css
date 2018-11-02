@@ -18,6 +18,10 @@ td {
     padding:10px;
 }
 
+label {
+    margin-bottom: 10px;
+}
+
 .text {
     display: inline;
 }
@@ -50,4 +54,8 @@ td {
     color: #999999;
     padding-left: 10px;
     padding-right: 10px;
+}
+
+#signUpError {
+    color: red;
 }

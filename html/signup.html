@@ -7,15 +7,20 @@
     <link href="../bootstrap/bootstrap.min.css" rel="stylesheet" media="screen">
     <link rel="stylesheet" href="../css/index.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="../model/model.js"></script>
+    <script src="../controller/signup_controller.js"></script>
+    <script src="../view/signup_view.js"></script>
     <title>Document</title>
 </head>
 <body>
 <h1>Sign Up: The Hangman</h1>
+<h4 id="signUpError"></h4>
 <form action="" class="login-form">
-    <input type="text" name="username" required placeholder="Username"><br>
-    <input type="password" minlength="8" required name="password" placeholder="Password"><br>
-    <input type="password" minlength="8" required name="confirm-password" placeholder="Confirm Password"><br>
+    <label><input id="sign-up-username" type="text" name="username" placeholder="Username"></label><br>
+    <label><input id="sign-up-password" type="password" minlength="8" name="password" placeholder="Password"></label><br>
+    <label><input id="sign-up-confirm-password" type="password" minlength="8" name="confirm-password"
+                  placeholder="Confirm Password"></label><br>
 </form>
-<button type="button" class="btn btn-warning" onclick=signUp()>Sign Up</button>
+<button type="button" class="btn btn-warning" onclick="signUpView()">Sign Up</button>
 </body>
 </html>

@@ -15,7 +15,12 @@ let word_hints = [
     "An executioner who hangs condemned people.",
     "Another term for razzle-dazzle.",
     "Bright blue in color, like a cloudless sky."
-]
+];
+let userString = {
+    emptyFieldError: "Please fill out every field",
+    passwordsMustMatchError: "Passwords must match",
+    passwordLengthError: "Password must be at least 6 characters long"
+};
 
 // Guess word object that stores all the information about the current word in play.
 function guessWord(word, hint) {
@@ -25,4 +30,15 @@ function guessWord(word, hint) {
     this.diplayed_word = undefined;
     this.displayed_word_arr = Array(this.word.length).fill(0);
     console.log("Word \"", this.word, "\" created.");
+}
+
+function signUp(credentials) {
+    let jsonFile = JSON.stringify(credentials);
+    $.ajax({
+        type: 'POST',
+        data: jsonFile,
+        contentType: 'application/json',
+        url: '/newuser'
+    });
+    console.log(jsonFile)
 }
