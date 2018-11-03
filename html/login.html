@@ -7,16 +7,19 @@
     <link href="../bootstrap/bootstrap.min.css" rel="stylesheet" media="screen">
     <link rel="stylesheet" href="../css/index.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="../model/model.js"></script>
+    <script src="../controller/login_controller.js"></script>
     <script src="../view/login_view.js"></script>
     <title>Document</title>
 </head>
 <body>
-<h1>Log In:The Hangman</h1>
+<h1>Log In: The Hangman</h1>
+<h4 id="logInError"></h4>
 <form action="" class="login-form">
-    <label><input type="text" name="username" required placeholder="Username"></label><br>
-    <label><input type="password" minlength="8" required name="password" placeholder="Password"></label><br>
+    <label><input id="log-in-username" type="text" name="username" placeholder="Username"></label><br>
+    <label><input id="log-in-password" type="password" minlength="8" name="password" placeholder="Password"></label><br>
 </form>
-<button type="button" class="btn btn-info" onclick=logIn()>Login</button>
+<button type="button" class="btn btn-info" onclick="logInView()">Log In</button>
 <button type="button" class="btn btn-warning" onclick="document.location.href='signup';">Sign Up</button>
 </body>
 </html>

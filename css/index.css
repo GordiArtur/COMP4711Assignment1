@@ -57,5 +57,9 @@ label {
 }
 
 #signUpError {
+color: red;
+}
+
+#logInError {
     color: red;
 }

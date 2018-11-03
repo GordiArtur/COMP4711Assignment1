@@ -1,12 +1,17 @@
-$(document).ready(function () {
+function logInView() {
+    console.log("log in pressed");
+    if (!validateLogIn()) {
+        return;
+    }
+    let userName = $('#log-in-username').val();
+    let pass = $('#log-in-password').val();
+    let credentials = {
+        name: userName,
+        password: pass
+    };
+    logInController(credentials);
+}
 
-});
-
-// function resetView() {
-//     resetController();
-//     printWord();
-//     printScore();
-//     printHint();
-//     $("#letters td").css("opacity", 1);
-//     $('#hint').css("color", "#999999");
-// }
+function displayLogInErrorMessage(msg) {
+    $('#logInError').text(msg);
+}

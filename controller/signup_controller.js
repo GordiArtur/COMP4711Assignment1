@@ -8,7 +8,7 @@ function signUpController(credentials) {
         } else {
             displaySignUpErrorMessage("created!");
         }
-    })
+    });
 }
 
 function validateSignUp() {

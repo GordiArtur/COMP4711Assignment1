@@ -37,13 +37,6 @@ app.post('/newuser', (req, res) => {
         }
         res.send(error);
     })
-    // dbo.createUser(credentials.name, credentials.password, (errorCode, errorMessage) => {
-    //     if (errorCode !== null) {
-    //         res.send(errorMessage);
-    //         return;
-    //     }
-    //     // user created
-    // });
 });
 
 app.listen(process.env.PORT || 3000, () => {

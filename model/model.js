@@ -56,3 +56,26 @@ function signUp(credentials, callback) {
         }
     });
 }
+
+function logIn(credentials, callback) {
+    let jsonFile = JSON.stringify(credentials);
+    $.ajax({
+        type: 'POST',
+        data: jsonFile,
+        contentType: 'application/json',
+        url: '/loginuser',
+        success: (err) => {
+            if (!err) {
+                // success
+                // redirect?
+                callback(null);
+            // } else if (err === "duplicate_err") {
+            //     console.log(userString.userNameExistsError);
+            //     callback(userString.userNameExistsError);
+            } else {
+                console.log(userString.databaseConnectionError);
+                callback(userString.databaseConnectionError);
+            }
+        }
+    });
+}
