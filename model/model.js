@@ -19,7 +19,9 @@ let word_hints = [
 let userString = {
     emptyFieldError: "Please fill out every field",
     passwordsMustMatchError: "Passwords must match",
-    passwordLengthError: "Password must be at least 6 characters long"
+    passwordLengthError: "Password must be at least 6 characters long",
+    userNameExistsError: "This username already exists. Pick another one",
+    databaseConnectionError: "Database insert error. Please try again"
 };
 
 // Guess word object that stores all the information about the current word in play.
@@ -32,13 +34,25 @@ function guessWord(word, hint) {
     console.log("Word \"", this.word, "\" created.");
 }
 
-function signUp(credentials) {
+function signUp(credentials, callback) {
     let jsonFile = JSON.stringify(credentials);
     $.ajax({
         type: 'POST',
         data: jsonFile,
         contentType: 'application/json',
-        url: '/newuser'
+        url: '/newuser',
+        success: (created) => {
+            if (created) {
+                // success
+                // redirect?
+                callback(null);
+            // } else if (created === 0) {
+            //     console.log(userString.userNameExistsError);
+            //     callback(userString.userNameExistsError);
+            } else {
+                console.log(userString.databaseConnectionError);
+                callback(userString.databaseConnectionError);
+            }
+        }
     });
-    console.log(jsonFile)
 }

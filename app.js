@@ -22,16 +22,30 @@ app.get('/signup', (req, res) => {
 app.post('/newuser', (req, res) => {
     let credentials = req.body;
     console.log(credentials);
-    dbo.createUser(credentials.name, credentials.password, (errorCode, errorMessage) => {
-        if (errorCode !== null) {
-            console.log(errorMessage);
-            res.send(errorMessage);
-            return;
+    let error = false;
+    dbo.findUser(credentials.name, (user) => {
+        if (!user) {
+            dbo.createUser(credentials, (err) => {
+                if (!err) {
+                    // log in
+                } else {
+                    error = true;
+                }
+            });
+        } else {
+            error = true;
         }
-        // user created
-    });
+        res.send(error);
+    })
+    // dbo.createUser(credentials.name, credentials.password, (errorCode, errorMessage) => {
+    //     if (errorCode !== null) {
+    //         res.send(errorMessage);
+    //         return;
+    //     }
+    //     // user created
+    // });
 });
 
 app.listen(process.env.PORT || 3000, () => {
-    console.log(`app now listening for requests on port ${process.env.PORT}`);
+    console.log(`app now listening for requests on port ${process.env.PORT || 3000}`);
 });
