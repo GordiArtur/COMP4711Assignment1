@@ -22,18 +22,18 @@ app.get('/signup', (req, res) => {
 app.post('/newuser', (req, res) => {
     let credentials = req.body;
     console.log(credentials);
-    let error = false;
+    let error = "";
     dbo.findUser(credentials.name, (user) => {
         if (!user) {
             dbo.createUser(credentials, (err) => {
                 if (!err) {
                     // log in
                 } else {
-                    error = true;
+                    error = "db_err";
                 }
             });
         } else {
-            error = true;
+            error = "duplicate_err";
         }
         res.send(error);
     })

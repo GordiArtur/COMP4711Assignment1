@@ -41,14 +41,14 @@ function signUp(credentials, callback) {
         data: jsonFile,
         contentType: 'application/json',
         url: '/newuser',
-        success: (created) => {
-            if (created) {
+        success: (err) => {
+            if (!err) {
                 // success
                 // redirect?
                 callback(null);
-            // } else if (created === 0) {
-            //     console.log(userString.userNameExistsError);
-            //     callback(userString.userNameExistsError);
+            } else if (err === "duplicate_err") {
+                console.log(userString.userNameExistsError);
+                callback(userString.userNameExistsError);
             } else {
                 console.log(userString.databaseConnectionError);
                 callback(userString.databaseConnectionError);
