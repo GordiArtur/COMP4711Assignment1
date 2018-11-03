@@ -11,18 +11,21 @@ const config = {
 
 firebase.initializeApp(config);
 
-function test() {
-    firebase.auth().createUserWithEmailAndPassword("artur@hello.world", "123456").catch(function(error) {
+function createUser(user, pass, callback) {
+    firebase.auth().createUserWithEmailAndPassword(user, pass).catch((error) => {
         // Handle Errors here.
         let errorCode = error.code;
         let errorMessage = error.message;
-        // ...
+
         console.log("\nerror:");
         console.log(errorCode);
         console.log(errorMessage);
+
+        callback(errorCode, errorMessage);
     });
+    callback(null, null);
 }
 
 module.exports = {
-    test
+    createUser
 };

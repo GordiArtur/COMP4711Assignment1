@@ -21,12 +21,17 @@ app.get('/signup', (req, res) => {
 
 app.post('/newuser', (req, res) => {
     let credentials = req.body;
-    console.log("credentials received");
     console.log(credentials);
+    dbo.createUser(credentials.name, credentials.password, (errorCode, errorMessage) => {
+        if (errorCode !== null) {
+            console.log(errorMessage);
+            res.send(errorMessage);
+            return;
+        }
+        // user created
+    });
 });
 
 app.listen(3000, () => {
     console.log('app now listening for requests on port 3000');
-    dbo.test();
-    console.log("singed in")
 });

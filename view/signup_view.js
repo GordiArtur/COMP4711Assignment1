@@ -1,17 +1,13 @@
-$(document).ready(function () {
-
-});
-
 function signUpView() {
     console.log("sign up pressed");
     if (!validateSignUp()) {
         return;
     }
     let userName = $('#sign-up-username').val();
-    let password = $('#sign-up-password').val();
+    let pass = $('#sign-up-password').val();
     let credentials = {
         name: userName,
-        pass: password
+        password: pass
     };
     signUpController(credentials);
 }
@@ -33,7 +29,7 @@ function validateSignUp() {
         inputs[i].removeClass('warning');
     }
     for (let i = 0; i < 3; i++) {
-        if (inputs[i].val().length == 0) {
+        if (inputs[i].val().length === 0) {
             error = true;
             inputs[i].addClass('warning');
             $('#signUpError').text(userString.emptyFieldError);
@@ -45,7 +41,7 @@ function validateSignUp() {
         $('#signUpError').text(userString.passwordLengthError);
         return false;
     }
-    if (inputs[1].val() != inputs[2].val()) {
+    if (inputs[1].val() !== inputs[2].val()) {
         inputs[1].addClass('warning');
         inputs[2].addClass('warning');
         $('#signUpError').text(userString.passwordsMustMatchError);
