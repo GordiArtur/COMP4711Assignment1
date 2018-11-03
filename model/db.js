@@ -32,7 +32,7 @@ function createUser(user, callback) {
     });
 }
 
-function findUser(name, callback) {
+function findUserByName(name, callback) {
     MongoClient.connect(uri, { useNewUrlParser: true }, (err, db) => {
         if (err) {
             return;
@@ -51,6 +51,25 @@ function findUser(name, callback) {
     });
 }
 
+function findUserByyNameAndPassword(name, password, callback) {
+    MongoClient.connect(uri, { useNewUrlParser: true }, (err, db) => {
+        if (err) {
+            return;
+        }
+        const collection = db.db("asn1db").collection("asn1");
+
+        collection.findOne({"name" : name, "password" : password}).then((user) => {
+            if (!user) {
+                callback(null);
+            } else {
+                callback(user);
+            }
+        });
+
+        db.close();
+    });
+}
+
 module.exports = {
-    createUser, findUser
+    createUser, findUserByName, findUserByyNameAndPassword
 };

@@ -21,9 +21,8 @@ app.get('/signup', (req, res) => {
 
 app.post('/newuser', (req, res) => {
     let credentials = req.body;
-    console.log(credentials);
     let error = "";
-    dbo.findUser(credentials.name, (user) => {
+    dbo.findUserByName(credentials.name, (user) => {
         if (!user) {
             dbo.createUser(credentials, (err) => {
                 if (!err) {
@@ -36,7 +35,21 @@ app.post('/newuser', (req, res) => {
             error = "duplicate_err";
         }
         res.send(error);
-    })
+    });
+});
+
+app.post('/loginuser', (req, res) => {
+   let credentials = req.body;
+   let error = "";
+   dbo.findUserByyNameAndPassword(credentials.name, credentials.password, (user) => {
+       if (!user) {
+           error = "no_user"
+       } else {
+           console.log("\nsigned in!");
+           console.log(user);
+       }
+       res.send(error);
+   });
 });
 
 app.listen(process.env.PORT || 3000, () => {

@@ -21,7 +21,8 @@ let userString = {
     passwordsMustMatchError: "Passwords must match",
     passwordLengthError: "Password must be at least 6 characters long",
     userNameExistsError: "This username already exists. Pick another one",
-    databaseConnectionError: "Database insert error. Please try again"
+    databaseConnectionError: "Database insert error. Please try again",
+    wrongUserInput: "Wrong username and/or password"
 };
 
 // Guess word object that stores all the information about the current word in play.
@@ -69,12 +70,9 @@ function logIn(credentials, callback) {
                 // success
                 // redirect?
                 callback(null);
-            // } else if (err === "duplicate_err") {
-            //     console.log(userString.userNameExistsError);
-            //     callback(userString.userNameExistsError);
             } else {
-                console.log(userString.databaseConnectionError);
-                callback(userString.databaseConnectionError);
+                console.log(userString.wrongUserInput);
+                callback(userString.wrongUserInput);
             }
         }
     });
