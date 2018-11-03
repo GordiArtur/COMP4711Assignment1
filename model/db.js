@@ -1,28 +1,75 @@
-const firebase = require('firebase');
+const MongoClient = require('mongodb').MongoClient;
+const uri = "mongodb+srv://gordiartur:asdfg@cluster0-wldfv.mongodb.net/test?retryWrites=true";
 
-const config = {
-    apiKey: "AIzaSyCtQOCI-3B_INDuI0m4LCM3nDTadT6CzqQ",
-    authDomain: "webasn3-98dfc.firebaseapp.com",
-    databaseURL: "https://webasn3-98dfc.firebaseio.com",
-    projectId: "webasn3-98dfc",
-    storageBucket: "",
-    messagingSenderId: "480492952855"
-};
+function tempTemplate(user, callback) {
+    MongoClient.connect(uri, { useNewUrlParser: true }, (err, db) => {
+        if (err) {
+            return;
+        }
+        const collection = db.db("asn1db").collection("asn1");
+        db.close();
+    });
+}
 
-firebase.initializeApp(config);
+function createUser(user, callback) {
+    MongoClient.connect(uri, { useNewUrlParser: true }, (err, db) => {
+        if (err) {
+            return;
+        }
+        const collection = db.db("asn1db").collection("asn1");
 
-function test() {
-    firebase.auth().createUserWithEmailAndPassword("artur@hello.world", "123456").catch(function(error) {
-        // Handle Errors here.
-        let errorCode = error.code;
-        let errorMessage = error.message;
-        // ...
-        console.log("\nerror:");
-        console.log(errorCode);
-        console.log(errorMessage);
+        collection.insertOne(user, (err, res) => {
+            if(err) {
+                console.log('Error occurred while inserting');
+                callback(err);
+            } else {
+                console.log('inserted record', res.ops[0]);
+                callback(null);
+            }
+        });
+
+        db.close();
+    });
+}
+
+function findUserByName(name, callback) {
+    MongoClient.connect(uri, { useNewUrlParser: true }, (err, db) => {
+        if (err) {
+            return;
+        }
+        const collection = db.db("asn1db").collection("asn1");
+
+        collection.findOne({"name" : name}).then((user) => {
+            if (!user) {
+                callback(null);
+            } else {
+                callback(user);
+            }
+        });
+
+        db.close();
+    });
+}
+
+function findUserByyNameAndPassword(name, password, callback) {
+    MongoClient.connect(uri, { useNewUrlParser: true }, (err, db) => {
+        if (err) {
+            return;
+        }
+        const collection = db.db("asn1db").collection("asn1");
+
+        collection.findOne({"name" : name, "password" : password}).then((user) => {
+            if (!user) {
+                callback(null);
+            } else {
+                callback(user);
+            }
+        });
+
+        db.close();
     });
 }
 
 module.exports = {
-    test
+    createUser, findUserByName, findUserByyNameAndPassword
 };

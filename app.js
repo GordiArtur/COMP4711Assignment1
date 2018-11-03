@@ -21,12 +21,37 @@ app.get('/signup', (req, res) => {
 
 app.post('/newuser', (req, res) => {
     let credentials = req.body;
-    console.log("credentials received");
-    console.log(credentials);
+    let error = "";
+    dbo.findUserByName(credentials.name, (user) => {
+        if (!user) {
+            dbo.createUser(credentials, (err) => {
+                if (!err) {
+                    // log in
+                } else {
+                    error = "db_err";
+                }
+            });
+        } else {
+            error = "duplicate_err";
+        }
+        res.send(error);
+    });
 });
 
-app.listen(3000, () => {
-    console.log('app now listening for requests on port 3000');
-    dbo.test();
-    console.log("singed in")
+app.post('/loginuser', (req, res) => {
+   let credentials = req.body;
+   let error = "";
+   dbo.findUserByyNameAndPassword(credentials.name, credentials.password, (user) => {
+       if (!user) {
+           error = "no_user"
+       } else {
+           console.log("\nsigned in!");
+           console.log(user);
+       }
+       res.send(error);
+   });
+});
+
+app.listen(process.env.PORT || 3000, () => {
+    console.log(`app now listening for requests on port ${process.env.PORT || 3000}`);
 });
