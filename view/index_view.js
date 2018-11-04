@@ -58,3 +58,7 @@ function printLose() {
 function displayWelcomeUserMessage(name) {
     $('#welcome-user-msg').text(`Welcome ${name}!!`);
 }
+
+function indexSignOutButton() {
+    signOutUser();
+}

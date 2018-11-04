@@ -22,7 +22,8 @@ let userString = {
     passwordLengthError: "Password must be at least 6 characters long",
     userNameExistsError: "This username already exists. Pick another one",
     databaseConnectionError: "Database insert error. Please try again",
-    wrongUserInput: "Wrong username and/or password"
+    wrongUserInputError: "Wrong username and/or password",
+    alreadyLoggedInWarning: "You are already logged in",
 };
 
 // Guess word object that stores all the information about the current word in play.
@@ -69,8 +70,8 @@ function logIn(credentials, callback) {
                 createUserSession(response._id, response.name);
                 callback(null);
             } else {
-                console.log(userString.wrongUserInput);
-                callback(userString.wrongUserInput);
+                console.log(userString.wrongUserInputError);
+                callback(userString.wrongUserInputError);
             }
         }
     });
@@ -79,4 +80,9 @@ function logIn(credentials, callback) {
 function createUserSession(id, name) {
     sessionStorage.setItem('_id', id);
     sessionStorage.setItem('name', name);
+}
+
+function signOutUser() {
+    sessionStorage.clear();
+    window.location.href = "/";
 }

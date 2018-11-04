@@ -2,6 +2,10 @@ $(document).ready(() => {
     let name = sessionStorage.getItem('name');
     if (name) {
         displayWelcomeUserMessage(name);
+        $('#indexLogInButton').hide();
+        $('#indexSignUpButton').hide();
+    } else {
+        $('#indexSingOutButton').hide();
     }
 });
 

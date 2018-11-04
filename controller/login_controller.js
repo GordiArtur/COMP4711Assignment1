@@ -1,3 +1,10 @@
+$(document).ready(() => {
+    let name = sessionStorage.getItem('name');
+    if (name) {
+        displayLogInErrorMessage(userString.alreadyLoggedInWarning);
+    }
+});
+
 function logInController(credentials) {
     let encryptedData = credentials;
     // encrypt data
