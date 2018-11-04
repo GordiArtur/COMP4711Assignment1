@@ -21,35 +21,65 @@ app.get('/signup', (req, res) => {
 
 app.post('/newuser', (req, res) => {
     let credentials = req.body;
-    let error = "";
-    dbo.findUserByName(credentials.name, (user) => {
-        if (!user) {
-            dbo.createUser(credentials, (err) => {
+    let response = null;
+    dbo.findUserByName(credentials.name, (existingUser) => {
+        if (!existingUser) {
+            dbo.createUser(credentials, (err, user) => {
                 if (!err) {
-                    // log in
+                    response = {
+                        'err': null,
+                        'user': user
+                    };
+                    res.send(response);
                 } else {
-                    error = "db_err";
+                    response = {
+                        'err': "db_err"
+                    };
+                    res.send(response);
                 }
             });
         } else {
-            error = "duplicate_err";
+            response = {
+                'err': "duplicate_err"
+            };
+            res.send(response);
         }
-        res.send(error);
     });
 });
 
 app.post('/loginuser', (req, res) => {
    let credentials = req.body;
-   let error = "";
+   let response = null;
    dbo.findUserByyNameAndPassword(credentials.name, credentials.password, (user) => {
        if (!user) {
-           error = "no_user"
+           response = {
+               'err': "no_user"
+           };
        } else {
-           console.log("\nsigned in!");
-           console.log(user);
+           response = {
+               'err': null,
+               'user': user
+           };
        }
-       res.send(error);
+       res.send(response);
    });
+});
+
+app.post('/updatescore', (req, res) => {
+    let score = req.body;
+    let response = null;
+    dbo.updateUserScore(score.user, score.score, (err) => {
+        if (!err) {
+            response = {
+                'err': null
+            };
+        } else {
+            response = {
+                'err': "score_update_err"
+            }
+        }
+        res.send(response);
+    })
 });
 
 app.listen(process.env.PORT || 3000, () => {

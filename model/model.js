@@ -2,6 +2,7 @@ const GUESS_LIMIT = 7;
 let current_word;
 let game_status = true;
 let user_score = 0;
+let user_top_score = null;
 let num_of_guesses = GUESS_LIMIT;
 let word_choice = ["tattoo", "tree", "airplane", "hello", "electricity", "absurd", "blitz", "hangman", "razzmatazz", "azure"];
 let word_hints = [
@@ -22,7 +23,8 @@ let userString = {
     passwordLengthError: "Password must be at least 6 characters long",
     userNameExistsError: "This username already exists. Pick another one",
     databaseConnectionError: "Database insert error. Please try again",
-    wrongUserInput: "Wrong username and/or password"
+    wrongUserInputError: "Wrong username and/or password",
+    alreadyLoggedInWarning: "You are already logged in",
 };
 
 // Guess word object that stores all the information about the current word in play.
@@ -35,19 +37,24 @@ function guessWord(word, hint) {
     console.log("Word \"", this.word, "\" created.");
 }
 
-function signUp(credentials, callback) {
-    let jsonFile = JSON.stringify(credentials);
+function signUp(userName, pass, callback) {
+    let credentials = {
+        name: userName,
+        password: pass,
+        score: 0
+    };
+    credentials = JSON.stringify(credentials);
+
     $.ajax({
         type: 'POST',
-        data: jsonFile,
+        data: credentials,
         contentType: 'application/json',
         url: '/newuser',
-        success: (err) => {
-            if (!err) {
-                // success
-                // redirect?
+        success: (response) => {
+            if (response.err === null) {
+                createUserSession(response.user);
                 callback(null);
-            } else if (err === "duplicate_err") {
+            } else if (response.err === "duplicate_err") {
                 console.log(userString.userNameExistsError);
                 callback(userString.userNameExistsError);
             } else {
@@ -58,21 +65,58 @@ function signUp(credentials, callback) {
     });
 }
 
-function logIn(credentials, callback) {
-    let jsonFile = JSON.stringify(credentials);
+function logIn(userName, pass, callback) {
+    let credentials = {
+        name: userName,
+        password: pass
+    };
+    credentials = JSON.stringify(credentials);
+
+    $.ajax({
+        type: 'POST',
+        data: credentials,
+        contentType: 'application/json',
+        url: '/loginuser',
+        success: (response) => {
+            if (response.err === null) {
+                createUserSession(response.user);
+                callback(null);
+            } else {
+                console.log(userString.wrongUserInputError);
+                callback(userString.wrongUserInputError);
+            }
+        }
+    });
+}
+
+function createUserSession(user) {
+    sessionStorage.setItem('_id', user._id);
+    sessionStorage.setItem('name', user.name);
+    sessionStorage.setItem('topScore', user.score);
+}
+
+function signOutUser() {
+    sessionStorage.clear();
+    window.location.href = "/";
+}
+
+function storeUserTopScore() {
+    sessionStorage.setItem('topScore', user_top_score);
+    let jsonFile = JSON.stringify({
+        'user': sessionStorage.getItem('name'),
+        'score': user_top_score
+    });
+
     $.ajax({
         type: 'POST',
         data: jsonFile,
         contentType: 'application/json',
-        url: '/loginuser',
-        success: (err) => {
-            if (!err) {
-                // success
-                // redirect?
-                callback(null);
+        url: '/updatescore',
+        success: (response) => {
+            if (response.err !== null) {
+                console.log("Database score update error");
             } else {
-                console.log(userString.wrongUserInput);
-                callback(userString.wrongUserInput);
+                console.log("Score updated");
             }
         }
     });

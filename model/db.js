@@ -21,10 +21,10 @@ function createUser(user, callback) {
         collection.insertOne(user, (err, res) => {
             if(err) {
                 console.log('Error occurred while inserting');
-                callback(err);
+                callback(err, null);
             } else {
                 console.log('inserted record', res.ops[0]);
-                callback(null);
+                callback(null, res.ops[0]);
             }
         });
 
@@ -70,6 +70,21 @@ function findUserByyNameAndPassword(name, password, callback) {
     });
 }
 
+function updateUserScore(name, score, callback) {
+    MongoClient.connect(uri, { useNewUrlParser: true }, (err, db) => {
+        if (err) {
+            return;
+        }
+        const collection = db.db("asn1db").collection("asn1");
+
+        collection.updateOne({'name': name}, {$set: {'score': parseInt(score)}}, (err) => {
+            callback(err);
+        });
+
+        db.close();
+    });
+}
+
 module.exports = {
-    createUser, findUserByName, findUserByyNameAndPassword
+    createUser, findUserByName, findUserByyNameAndPassword, updateUserScore
 };

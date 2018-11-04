@@ -54,3 +54,11 @@ function printWin() {
 function printLose() {
     $('#hint').text("YOU LOST!").css("color", "#FF0000");
 }
+
+function displayWelcomeUserMessage(name, score) {
+    $('#welcome-user-msg').text(`Welcome ${name}! Your high score is: ${score}`);
+}
+
+function indexSignOutButton() {
+    signOutUser();
+}

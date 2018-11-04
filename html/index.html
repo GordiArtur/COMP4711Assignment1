@@ -13,6 +13,7 @@
     <title>Document</title>
 </head>
 <body>
+    <h2 class="text-info" id = "welcome-user-msg"></h2>
     <h1>The Hangman</h1>
     <h3><div class="text">Score: </div><div id="score">0</div></h3>
     <h6><div class="text">Lives: </div><div id="lives">7</div></h6>
@@ -67,7 +68,8 @@
         </tr>
     </table>
     <button type="button" class="btn btn-dark" onclick=resetView()>Reset Game</button>
-    <button type="button" class="btn btn-info" onclick="document.location.href='login';">Login</button>
-    <button type="button" class="btn btn-warning" onclick="document.location.href='signup';">Sign Up</button>
+    <button id="indexLogInButton" type="button" class="btn btn-info" onclick="document.location.href='login';">Login</button>
+    <button id="indexSignUpButton" type="button" class="btn btn-warning" onclick="document.location.href='signup';">Sign Up</button>
+    <button id="indexSingOutButton" type="button" class="btn btn-info" onclick=indexSignOutButton();>Sign Out</button>
 </body>
 </html>

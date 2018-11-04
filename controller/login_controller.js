@@ -1,12 +1,17 @@
-function logInController(credentials) {
-    let encryptedData = credentials;
-    // encrypt data
+$(document).ready(() => {
+    let name = sessionStorage.getItem('name');
+    if (name) {
+        displayLogInErrorMessage(userString.alreadyLoggedInWarning);
+    }
+});
 
-    logIn(encryptedData, (msg) => {
+function logInController(userName, pass) {
+    logIn(userName, pass, (msg) => {
         if (msg) {
             displayLogInErrorMessage(msg);
         } else {
             displayLogInErrorMessage("logged in!");
+            window.location.href = "/";
         }
     });
 }

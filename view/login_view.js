@@ -5,11 +5,7 @@ function logInView() {
     }
     let userName = $('#log-in-username').val();
     let pass = $('#log-in-password').val();
-    let credentials = {
-        name: userName,
-        password: pass
-    };
-    logInController(credentials);
+    logInController(userName, pass);
 }
 
 function displayLogInErrorMessage(msg) {
