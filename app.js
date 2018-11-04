@@ -22,33 +22,53 @@ app.get('/signup', (req, res) => {
 app.post('/newuser', (req, res) => {
     let credentials = req.body;
     let error = "";
+    let response = null;
     dbo.findUserByName(credentials.name, (user) => {
         if (!user) {
-            dbo.createUser(credentials, (err) => {
+            dbo.createUser(credentials, (err, usr) => {
                 if (!err) {
-                    // log in
+                    response = {
+                        'err': null,
+                        '_id': usr._id,
+                        'name': usr.name
+                    };
+                    res.send(response);
                 } else {
                     error = "db_err";
+                    response = {
+                        'err': error,
+                    };
+                    res.send(response);
                 }
             });
         } else {
             error = "duplicate_err";
+            response = {
+                'err': error,
+            };
+            res.send(response);
         }
-        res.send(error);
     });
 });
 
 app.post('/loginuser', (req, res) => {
    let credentials = req.body;
    let error = "";
+   let response = null;
    dbo.findUserByyNameAndPassword(credentials.name, credentials.password, (user) => {
        if (!user) {
-           error = "no_user"
+           error = "no_user";
+           response = {
+               'err': error,
+           };
        } else {
-           console.log("\nsigned in!");
-           console.log(user);
+           response = {
+               'err': null,
+               '_id': user._id,
+               'name': user.name
+           };
        }
-       res.send(error);
+       res.send(response);
    });
 });
 

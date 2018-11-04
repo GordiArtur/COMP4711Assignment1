@@ -57,9 +57,13 @@ label {
 }
 
 #signUpError {
-color: red;
+    color: red;
 }
 
 #logInError {
+    color: red;
+}
+
+#welcome-user-msg {
     color: red;
 }

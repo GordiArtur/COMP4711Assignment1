@@ -1,3 +1,10 @@
+$(document).ready(() => {
+    let name = sessionStorage.getItem('name');
+    if (name) {
+        displayWelcomeUserMessage(name);
+    }
+});
+
 // Generates a random index used for a random word and hint.
 function newWordIndex() {
     let index = Math.floor(Math.random() * word_choice.length);

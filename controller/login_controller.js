@@ -7,6 +7,7 @@ function logInController(credentials) {
             displayLogInErrorMessage(msg);
         } else {
             displayLogInErrorMessage("logged in!");
+            window.location.href = "/";
         }
     });
 }

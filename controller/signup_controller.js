@@ -7,6 +7,7 @@ function signUpController(credentials) {
             displaySignUpErrorMessage(msg);
         } else {
             displaySignUpErrorMessage("created!");
+            window.location.href = "/";
         }
     });
 }

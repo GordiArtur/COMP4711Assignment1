@@ -21,10 +21,10 @@ function createUser(user, callback) {
         collection.insertOne(user, (err, res) => {
             if(err) {
                 console.log('Error occurred while inserting');
-                callback(err);
+                callback(err, null);
             } else {
                 console.log('inserted record', res.ops[0]);
-                callback(null);
+                callback(null, res.ops[0]);
             }
         });
 

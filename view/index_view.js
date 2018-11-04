@@ -54,3 +54,7 @@ function printWin() {
 function printLose() {
     $('#hint').text("YOU LOST!").css("color", "#FF0000");
 }
+
+function displayWelcomeUserMessage(name) {
+    $('#welcome-user-msg').text(`Welcome ${name}!!`);
+}

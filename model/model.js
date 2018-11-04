@@ -42,12 +42,11 @@ function signUp(credentials, callback) {
         data: jsonFile,
         contentType: 'application/json',
         url: '/newuser',
-        success: (err) => {
-            if (!err) {
-                // success
-                // redirect?
+        success: (response) => {
+            if (response.err === null) {
+                createUserSession(response._id, response.name);
                 callback(null);
-            } else if (err === "duplicate_err") {
+            } else if (response === "duplicate_err") {
                 console.log(userString.userNameExistsError);
                 callback(userString.userNameExistsError);
             } else {
@@ -65,10 +64,9 @@ function logIn(credentials, callback) {
         data: jsonFile,
         contentType: 'application/json',
         url: '/loginuser',
-        success: (err) => {
-            if (!err) {
-                // success
-                // redirect?
+        success: (response) => {
+            if (response.err === null) {
+                createUserSession(response._id, response.name);
                 callback(null);
             } else {
                 console.log(userString.wrongUserInput);
@@ -76,4 +74,9 @@ function logIn(credentials, callback) {
             }
         }
     });
+}
+
+function createUserSession(id, name) {
+    sessionStorage.setItem('_id', id);
+    sessionStorage.setItem('name', name);
 }
