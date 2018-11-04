@@ -1,5 +1,6 @@
 $(document).ready(() => {
     updateUserWelcomeMessage();
+    displayUserRanking();
 });
 
 // Generates a random index used for a random word and hint.
@@ -102,4 +103,10 @@ function updateUserScore() {
         storeUserTopScore();
         updateUserWelcomeMessage();
     }
+}
+
+function displayUserRanking() {
+    //db.get ranks
+    // sort ranks
+    // call display in loop
 }

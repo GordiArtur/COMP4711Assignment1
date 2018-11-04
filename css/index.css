@@ -7,14 +7,10 @@ body {
 }
 
 table {
-    font-size: 25px;
     margin: auto;
-    padding:40px;
 }
 
 td {
-    border-style: solid;
-    border-width: 1px;
     padding:10px;
 }
 
@@ -32,10 +28,11 @@ label {
 
 #letters {
     max-width: 450px;
-    margin-top: 40px;
     border-style: solid;
     border-width: 5px;
     background-color: #EEEEEE;
+    font-size: 25px;
+    padding:40px;
 }
 
 #score {
@@ -66,4 +63,8 @@ label {
 
 #welcome-user-msg {
     color: red;
+}
+
+#score-ranks {
+    max-width: 450px;
 }
