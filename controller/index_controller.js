@@ -1,12 +1,5 @@
 $(document).ready(() => {
-    let name = sessionStorage.getItem('name');
-    if (name) {
-        displayWelcomeUserMessage(name);
-        $('#indexLogInButton').hide();
-        $('#indexSignUpButton').hide();
-    } else {
-        $('#indexSingOutButton').hide();
-    }
+    updateUserWelcomeMessage();
 });
 
 // Generates a random index used for a random word and hint.
@@ -24,6 +17,7 @@ function resetController() {
     let hint = word_hints[word_index];
     current_word = new guessWord(word, hint); 
     updateDisplayWord();
+    updateUserWelcomeMessage();
 }
 
 // Updates the display word that will be shown to the user.
@@ -58,6 +52,7 @@ function letterPressedController(letter) {
         user_score--;
         num_of_guesses--;
     }
+    updateUserScore();
     checkGameStatus();
 }
 
@@ -86,5 +81,25 @@ function checkGameStatus() {
         game_status = false;
         printLose();
         return;
+    }
+}
+
+function updateUserWelcomeMessage() {
+    let name = sessionStorage.getItem('name');
+    if (name) {
+        user_top_score = sessionStorage.getItem('topScore');
+        displayWelcomeUserMessage(name, user_top_score);
+        $('#indexLogInButton').hide();
+        $('#indexSignUpButton').hide();
+    } else {
+        $('#indexSingOutButton').hide();
+    }
+}
+
+function updateUserScore() {
+    if (user_top_score !== null && user_score > parseInt(user_top_score)) {
+        user_top_score = user_score;
+        storeUserTopScore();
+        updateUserWelcomeMessage();
     }
 }

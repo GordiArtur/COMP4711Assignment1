@@ -21,30 +21,26 @@ app.get('/signup', (req, res) => {
 
 app.post('/newuser', (req, res) => {
     let credentials = req.body;
-    let error = "";
     let response = null;
-    dbo.findUserByName(credentials.name, (user) => {
-        if (!user) {
-            dbo.createUser(credentials, (err, usr) => {
+    dbo.findUserByName(credentials.name, (existingUser) => {
+        if (!existingUser) {
+            dbo.createUser(credentials, (err, user) => {
                 if (!err) {
                     response = {
                         'err': null,
-                        '_id': usr._id,
-                        'name': usr.name
+                        'user': user
                     };
                     res.send(response);
                 } else {
-                    error = "db_err";
                     response = {
-                        'err': error,
+                        'err': "db_err"
                     };
                     res.send(response);
                 }
             });
         } else {
-            error = "duplicate_err";
             response = {
-                'err': error,
+                'err': "duplicate_err"
             };
             res.send(response);
         }
@@ -53,23 +49,37 @@ app.post('/newuser', (req, res) => {
 
 app.post('/loginuser', (req, res) => {
    let credentials = req.body;
-   let error = "";
    let response = null;
    dbo.findUserByyNameAndPassword(credentials.name, credentials.password, (user) => {
        if (!user) {
-           error = "no_user";
            response = {
-               'err': error,
+               'err': "no_user"
            };
        } else {
            response = {
                'err': null,
-               '_id': user._id,
-               'name': user.name
+               'user': user
            };
        }
        res.send(response);
    });
+});
+
+app.post('/updatescore', (req, res) => {
+    let score = req.body;
+    let response = null;
+    dbo.updateUserScore(score.user, score.score, (err) => {
+        if (!err) {
+            response = {
+                'err': null
+            };
+        } else {
+            response = {
+                'err': "score_update_err"
+            }
+        }
+        res.send(response);
+    })
 });
 
 app.listen(process.env.PORT || 3000, () => {

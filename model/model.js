@@ -2,6 +2,7 @@ const GUESS_LIMIT = 7;
 let current_word;
 let game_status = true;
 let user_score = 0;
+let user_top_score = null;
 let num_of_guesses = GUESS_LIMIT;
 let word_choice = ["tattoo", "tree", "airplane", "hello", "electricity", "absurd", "blitz", "hangman", "razzmatazz", "azure"];
 let word_hints = [
@@ -39,7 +40,8 @@ function guessWord(word, hint) {
 function signUp(userName, pass, callback) {
     let credentials = {
         name: userName,
-        password: pass
+        password: pass,
+        score: 0
     };
     credentials = JSON.stringify(credentials);
 
@@ -50,7 +52,7 @@ function signUp(userName, pass, callback) {
         url: '/newuser',
         success: (response) => {
             if (response.err === null) {
-                createUserSession(response._id, response.name);
+                createUserSession(response.user);
                 callback(null);
             } else if (response.err === "duplicate_err") {
                 console.log(userString.userNameExistsError);
@@ -77,7 +79,7 @@ function logIn(userName, pass, callback) {
         url: '/loginuser',
         success: (response) => {
             if (response.err === null) {
-                createUserSession(response._id, response.name);
+                createUserSession(response.user);
                 callback(null);
             } else {
                 console.log(userString.wrongUserInputError);
@@ -87,12 +89,35 @@ function logIn(userName, pass, callback) {
     });
 }
 
-function createUserSession(id, name) {
-    sessionStorage.setItem('_id', id);
-    sessionStorage.setItem('name', name);
+function createUserSession(user) {
+    sessionStorage.setItem('_id', user._id);
+    sessionStorage.setItem('name', user.name);
+    sessionStorage.setItem('topScore', user.score);
 }
 
 function signOutUser() {
     sessionStorage.clear();
     window.location.href = "/";
+}
+
+function storeUserTopScore() {
+    sessionStorage.setItem('topScore', user_top_score);
+    let jsonFile = JSON.stringify({
+        'user': sessionStorage.getItem('name'),
+        'score': user_top_score
+    });
+
+    $.ajax({
+        type: 'POST',
+        data: jsonFile,
+        contentType: 'application/json',
+        url: '/updatescore',
+        success: (response) => {
+            if (response.err !== null) {
+                console.log("Database score update error");
+            } else {
+                console.log("Score updated");
+            }
+        }
+    });
 }
