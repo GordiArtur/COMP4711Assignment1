@@ -5,11 +5,7 @@ function signUpView() {
     }
     let userName = $('#sign-up-username').val();
     let pass = $('#sign-up-password').val();
-    let credentials = {
-        name: userName,
-        password: pass
-    };
-    signUpController(credentials);
+    signUpController(userName, pass);
 }
 
 function displaySignUpErrorMessage(msg) {

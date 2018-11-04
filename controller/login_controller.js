@@ -5,11 +5,8 @@ $(document).ready(() => {
     }
 });
 
-function logInController(credentials) {
-    let encryptedData = credentials;
-    // encrypt data
-
-    logIn(encryptedData, (msg) => {
+function logInController(userName, pass) {
+    logIn(userName, pass, (msg) => {
         if (msg) {
             displayLogInErrorMessage(msg);
         } else {

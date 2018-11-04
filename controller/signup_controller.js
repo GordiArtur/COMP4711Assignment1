@@ -5,11 +5,11 @@ $(document).ready(() => {
     }
 });
 
-function signUpController(credentials) {
-    let encryptedData = credentials;
+function signUpController(userName, pass) {
+    // let encryptedData = credentials;
     // encrypt data
 
-    signUp(encryptedData, (msg) => {
+    signUp(userName, pass, (msg) => {
         if (msg) {
             displaySignUpErrorMessage(msg);
         } else {

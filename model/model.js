@@ -36,18 +36,23 @@ function guessWord(word, hint) {
     console.log("Word \"", this.word, "\" created.");
 }
 
-function signUp(credentials, callback) {
-    let jsonFile = JSON.stringify(credentials);
+function signUp(userName, pass, callback) {
+    let credentials = {
+        name: userName,
+        password: pass
+    };
+    credentials = JSON.stringify(credentials);
+
     $.ajax({
         type: 'POST',
-        data: jsonFile,
+        data: credentials,
         contentType: 'application/json',
         url: '/newuser',
         success: (response) => {
             if (response.err === null) {
                 createUserSession(response._id, response.name);
                 callback(null);
-            } else if (response === "duplicate_err") {
+            } else if (response.err === "duplicate_err") {
                 console.log(userString.userNameExistsError);
                 callback(userString.userNameExistsError);
             } else {
@@ -58,11 +63,16 @@ function signUp(credentials, callback) {
     });
 }
 
-function logIn(credentials, callback) {
-    let jsonFile = JSON.stringify(credentials);
+function logIn(userName, pass, callback) {
+    let credentials = {
+        name: userName,
+        password: pass
+    };
+    credentials = JSON.stringify(credentials);
+
     $.ajax({
         type: 'POST',
-        data: jsonFile,
+        data: credentials,
         contentType: 'application/json',
         url: '/loginuser',
         success: (response) => {
