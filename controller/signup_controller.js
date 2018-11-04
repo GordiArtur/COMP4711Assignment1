@@ -1,12 +1,20 @@
-function signUpController(credentials) {
-    let encryptedData = credentials;
+$(document).ready(() => {
+    let name = sessionStorage.getItem('name');
+    if (name) {
+        displaySignUpErrorMessage(userString.alreadyLoggedInWarning);
+    }
+});
+
+function signUpController(userName, pass) {
+    // let encryptedData = credentials;
     // encrypt data
 
-    signUp(encryptedData, (msg) => {
+    signUp(userName, pass, (msg) => {
         if (msg) {
             displaySignUpErrorMessage(msg);
         } else {
             displaySignUpErrorMessage("created!");
+            window.location.href = "/";
         }
     });
 }
