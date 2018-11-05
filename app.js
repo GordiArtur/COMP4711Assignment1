@@ -1,8 +1,11 @@
 const express = require ('express');
 const bodyParser = require('body-parser');
+const crypto = require('crypto');
 const dbo = require('./model/db');
 
 const app = express();
+
+const secret = 'zxyabc';
 
 app.use(express.static(__dirname + '/'));
 app.use(bodyParser.json());
@@ -39,6 +42,7 @@ app.get('/userranks', (req, res) => {
 app.post('/newuser', (req, res) => {
     let credentials = req.body;
     let response = null;
+    credentials.password = crypto.createHmac('sha256', secret).update(credentials.password).digest('hex');
     dbo.findUserByName(credentials.name, (existingUser) => {
         if (!existingUser) {
             dbo.createUser(credentials, (err, user) => {
@@ -68,6 +72,7 @@ app.post('/newuser', (req, res) => {
 app.post('/loginuser', (req, res) => {
    let credentials = req.body;
    let response = null;
+   credentials.password = crypto.createHmac('sha256', secret).update(credentials.password).digest('hex');
    dbo.findUserByyNameAndPassword(credentials.name, credentials.password, (user) => {
        if (!user) {
            response = {
