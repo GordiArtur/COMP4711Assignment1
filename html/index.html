@@ -7,6 +7,7 @@
     <link href="../bootstrap/bootstrap.min.css" rel="stylesheet" media="screen">
     <link rel="stylesheet" href="../css/index.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="../model/userMessages.js"></script>
     <script src="../model/model.js"></script>
     <script src="../view/index_view.js"></script>
     <script src="../controller/index_controller.js"></script>
@@ -34,50 +35,7 @@
     <div>
         <p><div id="hint"></div></p>
     </div>
-    <table class="table table-bordered" id="letters">
-        <tr>
-            <td>A</td>
-            <td>B</td>
-            <td>C</td>
-            <td>D</td>
-        </tr>
-        <tr>
-            <td>E</td>
-            <td>F</td>
-            <td>G</td>
-            <td>H</td>
-        </tr>
-        <tr>
-            <td>I</td>
-            <td>J</td>
-            <td>K</td>
-            <td>L</td>
-        </tr>
-        <tr>
-            <td>M</td>
-            <td>N</td>
-            <td>O</td>
-            <td>P</td>
-        </tr>
-        <tr>
-            <td>Q</td>
-            <td>R</td>
-            <td>S</td>
-            <td>T</td>
-        </tr>
-        <tr>
-            <td>U</td>
-            <td>V</td>
-            <td>W</td>
-            <td>X</td>
-        </tr>
-        <tr>
-            <td>Y</td>
-            <td>Z</td>
-            <td></td>
-            <td></td>
-        </tr>
-    </table>
+    <table class="table table-bordered" id="letters"></table>
     <button type="button" class="btn btn-dark" onclick=resetView()>Reset Game</button>
     <button id="indexLogInButton" type="button" class="btn btn-info" onclick="document.location.href='login';">Login</button>
     <button id="indexSignUpButton" type="button" class="btn btn-warning" onclick="document.location.href='signup';">Sign Up</button>

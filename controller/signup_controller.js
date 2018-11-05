@@ -5,6 +5,7 @@ $(document).ready(() => {
     }
 });
 
+// Handles sign up functionality
 function signUpController(userName, pass) {
     // let encryptedData = credentials;
     // encrypt data
@@ -13,12 +14,13 @@ function signUpController(userName, pass) {
         if (msg) {
             displaySignUpErrorMessage(msg);
         } else {
-            displaySignUpErrorMessage("created!");
+            displaySignUpErrorMessage(userString.signedUp);
             window.location.href = "/";
         }
     });
 }
 
+// Validates signing up users
 function validateSignUp() {
     let inputs = [$('#sign-up-username'), $('#sign-up-password'), $('#sign-up-confirm-password')];
     let error = false;

@@ -1,5 +1,6 @@
 // Creates a new guessing game.
 $(document).ready(function () {
+    createLettersTable()
     resetView();
     printWord();
     printHint();
@@ -10,6 +11,24 @@ $(document).ready(function () {
         }
     });
 });
+
+// Dynamically generate Letters Table
+function createLettersTable() {
+    let html = "";
+    for (let i = 0; i < 26; i++) {
+        if (i % 4 === 0) {
+            html += `<tr>`;
+        }
+
+        html += `<td>${String.fromCharCode(i + 65)}</td>`;
+
+        if (i % 4 === 3) {
+            html += `</tr>`;
+        }
+    }
+    html += `<td></td><td></td></tr>`;
+    $('#letters').append(html);
+}
 
 // Handles user's "reset" button press.
 function resetView() {
@@ -23,7 +42,6 @@ function resetView() {
 
 // Handles user's letter presses.
 function letterPressed(letter) {
-    console.log("Letter pressed: ", letter);
     letterPressedController(letter);
     printWord();
     printScore();
@@ -47,22 +65,25 @@ function printHint() {
 
 // Prints the win message to the user.
 function printWin() {
-    $('#hint').text("YOU WON!!").css("color", "#000000");
+    $('#hint').text(userString.winMessage).css("color", "#000000");
 }
 
 // Prints the lose message to the user.
 function printLose() {
-    $('#hint').text("YOU LOST!").css("color", "#FF0000");
+    $('#hint').text(userString.loseMessage).css("color", "#FF0000");
 }
 
+// Displays welcome message to the user
 function displayWelcomeUserMessage(name, score) {
-    $('#welcome-user-msg').text(`Welcome ${name}! Your high score is: ${score}`);
+    $('#welcome-user-msg').text(userString.welcomeMessage(name, score));
 }
 
+// Handles sign out button
 function indexSignOutButton() {
     signOutUser();
 }
 
+// Appends a row to the rank table
 function appendRankTableRow(rank, name, score) {
     // language=HTML
     $('#score-ranks tbody').append(

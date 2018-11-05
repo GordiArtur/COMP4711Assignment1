@@ -85,6 +85,7 @@ function checkGameStatus() {
     }
 }
 
+// Update user welcome message if the user is signed in
 function updateUserWelcomeMessage() {
     let name = sessionStorage.getItem('name');
     if (name) {
@@ -97,6 +98,7 @@ function updateUserWelcomeMessage() {
     }
 }
 
+// Update user high score if the user is signed in
 function updateUserScore() {
     if (user_top_score !== null && user_score > parseInt(user_top_score)) {
         user_top_score = user_score;
@@ -105,6 +107,7 @@ function updateUserScore() {
     }
 }
 
+// Display all user rankings
 function displayUserRanking() {
     getUserRanks((ranks) => {
         let ranksArr = [];
