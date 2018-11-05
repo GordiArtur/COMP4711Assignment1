@@ -5,17 +5,19 @@ $(document).ready(() => {
     }
 });
 
+// Handles login functionality
 function logInController(userName, pass) {
     logIn(userName, pass, (msg) => {
         if (msg) {
             displayLogInErrorMessage(msg);
         } else {
-            displayLogInErrorMessage("logged in!");
+            displayLogInErrorMessage(userString.loggedIn);
             window.location.href = "/";
         }
     });
 }
 
+// Validates logging users in
 function validateLogIn() {
     let inputs = [$('#log-in-username'), $('#log-in-password')];
     let error = false;

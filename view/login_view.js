@@ -1,5 +1,5 @@
+// Handles login button press and passes info to the login_controller for validation
 function logInView() {
-    console.log("log in pressed");
     if (!validateLogIn()) {
         return;
     }
@@ -8,6 +8,7 @@ function logInView() {
     logInController(userName, pass);
 }
 
+// Displays error message on failed validation
 function displayLogInErrorMessage(msg) {
     $('#logInError').text(msg);
 }
