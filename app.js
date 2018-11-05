@@ -19,6 +19,18 @@ app.get('/signup', (req, res) => {
     res.sendFile(__dirname + '/html/signup.html');
 });
 
+app.get('/userranks', (req, res) => {
+    dbo.getUserScores((err, scores) => {
+        if (!err) {
+            res.send(JSON.stringify(scores));
+        } else {
+            res.send({
+                'err': "db_err"
+            })
+        }
+    })
+});
+
 app.post('/newuser', (req, res) => {
     let credentials = req.body;
     let response = null;

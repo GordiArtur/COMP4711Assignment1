@@ -85,6 +85,21 @@ function updateUserScore(name, score, callback) {
     });
 }
 
+function getUserScores(callback) {
+    MongoClient.connect(uri, { useNewUrlParser: true }, (err, db) => {
+        if (err) {
+            return;
+        }
+        const collection = db.db("asn1db").collection("asn1");
+
+        collection.find({}, {fields:{_id: 0, password: 0}}).toArray((err, scores) => {
+            callback(err, scores);
+        });
+
+        db.close();
+    });
+}
+
 module.exports = {
-    createUser, findUserByName, findUserByyNameAndPassword, updateUserScore
+    createUser, findUserByName, findUserByyNameAndPassword, updateUserScore, getUserScores
 };

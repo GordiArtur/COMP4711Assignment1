@@ -121,3 +121,9 @@ function storeUserTopScore() {
         }
     });
 }
+
+function getUserRanks(callback) {
+    $.getJSON('/userranks', (ranks) => {
+        callback(ranks);
+    });
+}

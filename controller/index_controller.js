@@ -1,5 +1,6 @@
 $(document).ready(() => {
     updateUserWelcomeMessage();
+    displayUserRanking();
 });
 
 // Generates a random index used for a random word and hint.
@@ -102,4 +103,21 @@ function updateUserScore() {
         storeUserTopScore();
         updateUserWelcomeMessage();
     }
+}
+
+function displayUserRanking() {
+    getUserRanks((ranks) => {
+        let ranksArr = [];
+        for (let rank in ranks) {
+            ranksArr.push([rank, ranks[rank]]);
+        }
+
+        ranksArr.sort((a, b) => {
+            return b[1].score - a[1].score;
+        });
+
+        for (let i = 0; i < ranksArr.length; i++) {
+            appendRankTableRow(i+1, ranksArr[i][1].name, ranksArr[i][1].score);
+        }
+    })
 }
