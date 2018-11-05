@@ -23,6 +23,5 @@ let userString = {
     signedUp: "Created!",
     winMessage: "YOU WON!!",
     loseMessage: "YOU LOST!",
-    welcomeMessage: function(user, score) {return `Welcome ${user}! Your high score is: ${score}`;},
-
+    welcomeMessage: (user, score) => {return `Welcome ${user}! Your high score is: ${score}`;}
 };

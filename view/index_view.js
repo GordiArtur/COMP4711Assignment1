@@ -1,5 +1,6 @@
 // Creates a new guessing game.
 $(document).ready(function () {
+    createLettersTable()
     resetView();
     printWord();
     printHint();
@@ -10,6 +11,24 @@ $(document).ready(function () {
         }
     });
 });
+
+// Dynamically generate Letters Table
+function createLettersTable() {
+    let html = "";
+    for (let i = 0; i < 26; i++) {
+        if (i % 4 === 0) {
+            html += `<tr>`;
+        }
+
+        html += `<td>${String.fromCharCode(i + 65)}</td>`;
+
+        if (i % 4 === 3) {
+            html += `</tr>`;
+        }
+    }
+    html += `<td></td><td></td></tr>`;
+    $('#letters').append(html);
+}
 
 // Handles user's "reset" button press.
 function resetView() {
