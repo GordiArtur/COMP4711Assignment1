@@ -7,6 +7,7 @@ $(document).ready(() => {
 
 // Handles login functionality
 function logInController(userName, pass) {
+    userName = userName.toLowerCase();
     logIn(userName, pass, (msg) => {
         if (msg) {
             displayLogInErrorMessage(msg);
