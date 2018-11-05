@@ -1,6 +1,5 @@
 // Handles login button press and passes info to the login_controller for validation
 function logInView() {
-    console.log("log in pressed");
     if (!validateLogIn()) {
         return;
     }

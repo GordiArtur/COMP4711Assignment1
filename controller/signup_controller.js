@@ -14,7 +14,7 @@ function signUpController(userName, pass) {
         if (msg) {
             displaySignUpErrorMessage(msg);
         } else {
-            displaySignUpErrorMessage("created!");
+            displaySignUpErrorMessage(userString.signedUp);
             window.location.href = "/";
         }
     });

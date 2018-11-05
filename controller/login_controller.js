@@ -11,7 +11,7 @@ function logInController(userName, pass) {
         if (msg) {
             displayLogInErrorMessage(msg);
         } else {
-            displayLogInErrorMessage("logged in!");
+            displayLogInErrorMessage(userString.loggedIn);
             window.location.href = "/";
         }
     });

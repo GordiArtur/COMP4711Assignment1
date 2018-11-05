@@ -1,6 +1,5 @@
 // Handles sign up button press and passes info to signup_controller for validation
 function signUpView() {
-    console.log("sign up pressed");
     if (!validateSignUp()) {
         return;
     }
