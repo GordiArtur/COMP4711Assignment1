@@ -62,3 +62,14 @@ function displayWelcomeUserMessage(name, score) {
 function indexSignOutButton() {
     signOutUser();
 }
+
+function appendRankTableRow(rank, name, score) {
+    // language=HTML
+    $('#score-ranks tbody').append(
+        `<tr>
+            <th>${rank}</th>
+            <td>${name}</td>
+            <td>${score}</td>
+        </tr>`
+    );
+}
