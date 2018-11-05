@@ -7,9 +7,7 @@ $(document).ready(() => {
 
 // Handles sign up functionality
 function signUpController(userName, pass) {
-    // let encryptedData = credentials;
-    // encrypt data
-
+    userName = userName.toLowerCase();
     signUp(userName, pass, (msg) => {
         if (msg) {
             displaySignUpErrorMessage(msg);
