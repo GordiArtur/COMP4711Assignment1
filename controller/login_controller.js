@@ -5,6 +5,7 @@ $(document).ready(() => {
     }
 });
 
+// Handles login functionality
 function logInController(userName, pass) {
     logIn(userName, pass, (msg) => {
         if (msg) {
@@ -16,6 +17,7 @@ function logInController(userName, pass) {
     });
 }
 
+// Validates logging users in
 function validateLogIn() {
     let inputs = [$('#log-in-username'), $('#log-in-password')];
     let error = false;

@@ -55,14 +55,17 @@ function printLose() {
     $('#hint').text("YOU LOST!").css("color", "#FF0000");
 }
 
+// Displays welcome message to the user
 function displayWelcomeUserMessage(name, score) {
     $('#welcome-user-msg').text(`Welcome ${name}! Your high score is: ${score}`);
 }
 
+// Handles sign out button
 function indexSignOutButton() {
     signOutUser();
 }
 
+// Appends a row to the rank table
 function appendRankTableRow(rank, name, score) {
     // language=HTML
     $('#score-ranks tbody').append(

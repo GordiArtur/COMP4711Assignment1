@@ -1,3 +1,4 @@
+// Handles sign up button press and passes info to signup_controller for validation
 function signUpView() {
     console.log("sign up pressed");
     if (!validateSignUp()) {
@@ -8,6 +9,7 @@ function signUpView() {
     signUpController(userName, pass);
 }
 
+// Displays error message on failed validation
 function displaySignUpErrorMessage(msg) {
     $('#signUpError').text(msg);
 }

@@ -37,6 +37,7 @@ function guessWord(word, hint) {
     console.log("Word \"", this.word, "\" created.");
 }
 
+// Handles sign up request
 function signUp(userName, pass, callback) {
     let credentials = {
         name: userName,
@@ -65,6 +66,7 @@ function signUp(userName, pass, callback) {
     });
 }
 
+// Handles login request
 function logIn(userName, pass, callback) {
     let credentials = {
         name: userName,
@@ -89,17 +91,20 @@ function logIn(userName, pass, callback) {
     });
 }
 
+// Creates a logged in user session
 function createUserSession(user) {
     sessionStorage.setItem('_id', user._id);
     sessionStorage.setItem('name', user.name);
     sessionStorage.setItem('topScore', user.score);
 }
 
+// Signs out user by clearing up the user session
 function signOutUser() {
     sessionStorage.clear();
     window.location.href = "/";
 }
 
+// Handles storing user's score request
 function storeUserTopScore() {
     sessionStorage.setItem('topScore', user_top_score);
     let jsonFile = JSON.stringify({
@@ -122,6 +127,7 @@ function storeUserTopScore() {
     });
 }
 
+// Handles getting user's ranks request
 function getUserRanks(callback) {
     $.getJSON('/userranks', (ranks) => {
         callback(ranks);
